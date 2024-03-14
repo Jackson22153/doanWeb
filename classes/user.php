@@ -8,11 +8,12 @@
 
         //Constructor
 
-        public function __construct($username, $password) {
-            $this->username = $username;
-            $this->password = $password;
-          }
-
+        public function __construct( $username = '', $password = ''){
+            if ($username != '' && $password != '') {
+                $this->username = $username;
+                $this->password = $password;
+            }
+        }
         //Phương thức kiểm tra nhập dữ liệu
         protected function validate(){
             $rs = $this->username != '' && $this->password != '';

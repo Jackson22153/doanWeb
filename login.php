@@ -1,26 +1,40 @@
 <?php
     require "inc/init.php";
-    ini_set('display_errors', 'off');
+    // ini_set('display_errors', 'off');
+    $conn = require "inc/db.php";
     if($_SERVER['REQUEST_METHOD'] == 'POST'){
-        $conn = require "inc/db.php";
         
         $email = $_POST["email"];
         $password = $_POST["password"];
-
-        try{
-            if (User::authenticate($conn, $email, $password)) {
-                Auth::login();
-                Header('Location: index.php');
-            } 
-            else {
-                Dialog::show("Incorrect user or password");
+        $errors = array();
+        if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            array_push($errors, "Email is not valid");
+        }
+        if (strlen($password)<8) {
+            array_push($errors,"Password must be at least 8 character long");
+        }
+        if (count($errors)>0) {
+            foreach ($errors as  $error){
+                Dialog::show($error);
             }
         }
-        catch(PDOException $e){
-            echo $e->getMessage();
-            // Có thể gọi trang xử lí lỗi
-            // Header('Location: error.php');
+        else{
+            try{
+                if (User::authenticate($conn, $email, $password)) {
+                    Auth::login();
+                    Header('Location: index.php');
+                } 
+                else {
+                    Dialog::show("Incorrect user or password");
+                }
+            }
+            catch(PDOException $e){
+                echo $e->getMessage();
+                // Có thể gọi trang xử lí lỗi
+                // Header('Location: error.php');
+            }
         }
+       
     }
     
 ?>

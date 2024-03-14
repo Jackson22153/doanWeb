@@ -1,24 +1,48 @@
 <?php
     require "inc/init.php";
+    
     if($_SERVER['REQUEST_METHOD'] == 'POST'){
-        $conn = require "inc/db.php";
         $email = $_POST['email'];
         $password = $_POST['password'];
         $passwordRepeat = $_POST["repeat_password"];
-        $user = new User($email, $password);
-        try{
-            if($user->addUser($conn)){
-                Dialog::show("Add User Successfully! redirect to Login...");
+        $errors = array();
+        if (empty($email) OR empty($password) OR empty($passwordRepeat)) {
+            array_push($errors,"All fields are required");
+        }
+        if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            array_push($errors, "Email is not valid");
+        }
+        if (strlen($password)<8) {
+            array_push($errors,"Password must be at least 8 character long");
+        }
+        if ($password!==$passwordRepeat) {
+            array_push($errors,"Password does not match");
+        }
+        if (count($errors)>0) {
+            foreach ($errors as  $error){
+                Dialog::show($error);
             }
-            else{
+        }
+        else{
+            $conn = require "inc/db.php";
+            $user = new User($email, $password);      
+            try{
+                if($user->addUser($conn)){
+                    Dialog::show("Add User Successfully!");
+                }
+                else{
                     Dialog::show("Cannot Add User!");
+                }
+            }
+            catch(PDOException $e){
+                Dialog::show("Something wrong!!! Try again");
+                // echo $e->getMessage();
+                // Có thể gọi trang xử lí lỗi
+                // Header('Location: error.php');
             }
         }
-        catch(PDOException $e){
-            echo $e->getMessage();
-            // Có thể gọi trang xử lí lỗi
-            // Header('Location: error.php');
-        }
+        
+        
     }
 ?>
 
@@ -47,15 +71,13 @@
                 <header>Sign Up</header>
                 <form action="signup.php" method="post">
                     <div class="field input-field">
-                        <input type="Email" placeholder="Email" name="email" class="input" required>
+                        <input type="email" placeholder="Email" name="email" class="input" required>
                     </div>
                     <div class="field input-field">
                         <input type="password" placeholder="Password" name="password" class="password"  required>
-                        <i class='bx bx-hide eye-icon'></i>
                     </div>
                     <div class="field input-field">
                         <input type="password" placeholder="Repeat Password" name="repeat_password" class="password" required>
-                        <i class='bx bx-hide eye-icon'></i>
                     </div>
                     <div class="field button-field">
                         <button type="submit" value="Sign up" name="submit">Sign Up</button>

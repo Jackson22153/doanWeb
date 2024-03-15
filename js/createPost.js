@@ -56,11 +56,18 @@ function validate(writingArea){
 function minifyHTML(html) {
     return html.replace(/\s+/g, ' ').trim();
 }
+// extract title plain text
+function extractPlainTextFromHTML(htmlString) {
+  const tempElement = document.createElement('span');
+  tempElement.innerHTML = htmlString;
+  return tempElement.textContent || tempElement.innerText;
+}
 // submit form
 textEditorForm.addEventListener('submit', (event)=>{
 event.preventDefault();
 // 
-var title = writingArea.querySelector("h1.title").innerHTML;
+var h1Title = writingArea.querySelector("h1.title").innerHTML;
+var title = extractPlainTextFromHTML(h1Title);
 // creating a new form
 // var imgPropertiesEle = writingArea.querySelectorAll('img-properties');
 // imgPropertiesEle.forEach(ele => ele.remove());

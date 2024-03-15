@@ -1,6 +1,5 @@
 <?php  
-  require "./inc/init.php";
-
+  require 'inc/init.php';
   $conn = require "./inc/db.php";
   $categories = Category::getAllCategories($conn);
   $state = State::getPublicState($conn);

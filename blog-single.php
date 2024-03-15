@@ -6,6 +6,7 @@
 	$state = State::getPublicState($conn);
 	$postDetail = PostDetail::getPostDetail($requestParam, $state->id, $conn);
 	$user = User::getUser($conn, $postDetail->userID);
+    $username = $user->username;
 	$categories = Category::getAllCategories($conn);
 
 	require "inc/header.php"; 
@@ -38,7 +39,7 @@
        							<div class="float-right mt-sm-0 mt-3">
        								<div class="media">
        									<div class="media-body">
-       										<h5><?=$user->username?></h5>
+       										<h5><?=$username?></h5>
        										<p><?=$postDetail->date?></p>
        									</div>
        									<!-- <div class="d-flex">

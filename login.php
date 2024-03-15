@@ -1,6 +1,9 @@
 <?php
     require "inc/init.php";
     ini_set('display_errors', 'off');
+    if(Auth::isLoggedIn()){
+        Header("Location: index.php");
+    }
     if($_SERVER['REQUEST_METHOD'] == 'POST'){
         $conn = require "inc/db.php";
         
@@ -9,7 +12,7 @@
 
         try{
             if (User::authenticate($conn, $email, $password)) {
-
+                
                 Auth::login($email, $conn);
                 Header('Location: index.php');
             } 

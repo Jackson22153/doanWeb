@@ -108,15 +108,16 @@
     <div class="container" id="text-editor-body">
         <!-- content -->
         <div id="text-input">
-            <!-- <h1 class="title line" contenteditable="true"></h1>
-            <div class="line" contenteditable="true" data-placeholder="Enter text here"></div> -->
+            <h1 class="title line" contenteditable="true"></h1>
+            <div class="line" contenteditable="true" data-placeholder="Enter text here"></div>
         </div>
         <div id="text-input-hiden" hidden>
             <?=$postContent?>
         </div>
-        <input name="postID" type="text" value=<?=$postID?> hidden />
+        <input name="postID" type="text" value=<?=$postID ?? 0?> hidden />
     </div>
     <div class="buttons-form">
+        <a href="../index.php" class="btn btn-light border-secondary-subtle toggle-button">Home</a>
         <span id="next-button" class="btn btn-primary toggle-button">Next</span>
     </div>
     <!-- modal -->

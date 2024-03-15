@@ -227,7 +227,7 @@ img-properties{
   right: 50%;
   transform: translateX(50%);
 }
-#next-button{
+.buttons-form .btn{
   width: 100px;
   height: 40px;
 }

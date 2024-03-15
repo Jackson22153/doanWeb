@@ -65,7 +65,7 @@
     <script src="../../js/imageProcessing.js"></script>
 </head>
 <body>
-    <?php require '../../inc/text-editor-update.php'?>
+    <?php require '../../inc/text-editor.php'?>
 </body>
 <script src="../../js/categoryCheckBox.js"></script>
 <script src="../../js/text-editor.js" defer></script>

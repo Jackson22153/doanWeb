@@ -36,7 +36,7 @@
                     $roleID = $role->id;
                     $userID = $user->getUserID($conn,$email);
                     $UserRole = new UserRole($userID, $roleID);
-    
+                    $UserRole->addUserRole($conn);
                 }
                 else{
                     Dialog::show("Cannot Add User!");

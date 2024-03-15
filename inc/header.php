@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="zxx" class="no-js">
   <head>
@@ -77,6 +78,7 @@
                 id="collapsibleNavbar"
               >
                 <ul class="navbar-nav justify-content-center w-100">
+                  
                   <li class="nav-item hide-lg">
                     <a class="nav-link" href="index.php">Home</a>
                   </li>
@@ -102,10 +104,21 @@
                   </li> -->
                   <?php
                   if(Auth::isLoggedIn()){
-                    echo '<li class="nav-item">' 
-                    .'<a class="nav-link" href="./textEditor/index.php">Viết bài</a>'.
-                    '</li>';
+                    $user = $_SESSION['user'];
+                    $roles = $user->role;
+                    if(in_array('USER', $roles)){
+  
+                      echo '<li class="nav-item">' 
+                      .'<a class="nav-link" href="./textEditor/index.php">Viết bài</a>'.
+                      '</li>';
+                    }
+                    if(in_array('ADMIN', $roles)){
+                      echo '<li class="nav-item">' 
+                      .'<a class="nav-link" href="./admin/index.php">Dashboard</a>'.
+                      '</li>';
+                    }
                   }
+                 
                   ?>
                   
                   <li class="nav-item">

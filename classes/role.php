@@ -23,6 +23,18 @@
             return $role;
         }
 
+        public static function getAllRoles($conn){
+            $sql = "
+                select * from roles
+            ";
+            $stmt = $conn->prepare($sql);
+            $stmt->setFetchMode(PDO::FETCH_CLASS, 'Role');
+            $stmt->execute();
+            $role = $stmt->fetchAll();
+
+            return $role;
+        }
+
         
     }
 ?>

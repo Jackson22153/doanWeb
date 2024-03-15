@@ -94,7 +94,7 @@
                         </li>
                         <li class="list-group-item diabled">
                             <div class="d-flex text-black">
-                                <a>Create account <span class="ti-arrow-right"></span></a>    
+                                <a href="create-account/index.php">Create an account <span class="ti-arrow-right"></span></a>    
                             </div>
                         </li>
                     </ul>

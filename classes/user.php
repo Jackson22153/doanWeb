@@ -76,6 +76,18 @@
             }else{
                 return false;
             }
+            
+        }
+        public static function getUserID($conn, $username){
+            $sql = "
+                SELECT id FROM users
+                WHERE username = :username;
+            ";
+            $stmt = $conn->prepare($sql);
+            $stmt->bindValue(':username', $username, PDO::PARAM_STR);
+            $stmt->execute();
+            $result = $stmt->fetch();
+            return $result['id'] ?? null; // Return the 'id' value or null if not found
         }
     }
 ?>

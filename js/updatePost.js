@@ -2,29 +2,7 @@ let textEditorForm = document.getElementById("text-editor");
 // update post
 let postContent = document.getElementById('text-input-hiden');
 
-var lines = postContent.children;
-Array.from(lines).forEach(line=>{
-    if(line.tagName!== 'H1'){
-        if(line.tagName !== 'DIV'){
-            var newLine = document.createElement('div');
-            newLine.classList.add("line");
-            newLine.setAttribute('contenteditable', 'true');
-            newLine.appendChild(line);
 
-            writingArea.appendChild(newLine);
-        }
-        else{
-            line.classList.add('line');
-            line.setAttribute('contenteditable', true);
-
-            writingArea.appendChild(line);
-        }
-    }
-    else{
-        line.setAttribute('contenteditable', 'true');
-        writingArea.appendChild(line);
-    }
-})
 
 async function filterElement(line){
     const childEle = line.firstChild;
@@ -83,7 +61,7 @@ function removeCommentsFromHTML(htmlString) {
 }
 // remove white spaces among html code 
 function minifyHTML(html) {
-    return html.replace(/\s+/g, ' ').trim();
+  return html.replace(/\s+/g, ' ').trim();
 }
 // submit event
 textEditorForm.addEventListener('submit', (event)=>{
@@ -149,7 +127,40 @@ textEditorForm.addEventListener('submit', (event)=>{
     // submit
     document.body.appendChild(form);
     form.submit();
-})      
+})  
+
+
+function initial(){
+  // remove child elements
+  while (writingArea.firstChild) {
+    writingArea.removeChild(writingArea.firstChild);
+  }
+  // insert post content
+  var lines = postContent.children;
+  Array.from(lines).forEach(line=>{
+    if(line.tagName!== 'H1'){
+      if(line.tagName !== 'DIV'){
+        var newLine = document.createElement('div');
+        newLine.classList.add("line");
+        newLine.setAttribute('contenteditable', 'true');
+        newLine.appendChild(line);
+
+        writingArea.appendChild(newLine);
+      }
+      else{
+        line.classList.add('line');
+        line.setAttribute('contenteditable', true);
+
+        writingArea.appendChild(line);
+      }
+    }
+    else{
+      line.setAttribute('contenteditable', 'true');
+      writingArea.appendChild(line);
+    }
+  })
+}
+window.onload = initial();
 // yesConfirmBtn.addEventListener('click', ()=>{
 //   var title = writingArea.querySelector("h1.title").innerHTML;
 //   // creating a new form

@@ -12,9 +12,9 @@
         $states = State::getAllStates($conn);
         $updatePath = 'postUpdate.php';
       
-        if(isset($_GET['p']) && !empty($_GET['p'])){
+        if(isset($_GET['p']) && !empty($_GET['p'])){ 
             $postID = intval($_GET['p']);
-            $postDetail = PostDetail::getPostDetailByUserID($postID, 1, $conn);
+            $postDetail = PostDetail::getPostDetailByUserID($postID, $user->id, $conn);
             $postTitle = $postDetail->title;
             $postImg = $postDetail->img;
             $postContent = $postDetail->content;
@@ -67,7 +67,7 @@
     <script src="../js/imageProcessing.js"></script>
 </head>
 <body>
-    <?php require '../inc/text-editor-update.php'?>
+    <?php require '../inc/text-editor.php'?>
 </body>
 <script src="../js/categoryCheckBox.js"></script>
 <script src="../js/text-editor.js"></script>

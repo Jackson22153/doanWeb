@@ -1,5 +1,5 @@
 <?php
-    class UserRoles{
+    class UsersRolesInfo{
         public $id;
         public $username;
         public $role;
@@ -11,14 +11,14 @@
         }
 
 
-        public function getUserRoles($conn){
+        public function getUserRolesInfo($conn){
             $sql = "
-                select * from userroles
+                select * from usersrolesinfo
                 where username=:username;
             ";
             $stmt = $conn->prepare($sql);
             $stmt->bindValue(':username', $this->username, PDO::PARAM_STR);
-            $stmt->setFetchMode(PDO::FETCH_CLASS, 'UserRoles');
+            $stmt->setFetchMode(PDO::FETCH_CLASS, 'UsersRolesInfo');
             $stmt->execute();
             $users = $stmt->fetchAll();
 

@@ -16,8 +16,8 @@
             session_regenerate_id(true);
             $_SESSION['logged_in'] = true;
 
-            $user = new UserRoles($username);
-            $userinfo = $user->getUserRoles($conn);
+            $user = new UsersRolesInfo($username);
+            $userinfo = $user->getUserRolesInfo($conn);
             $_SESSION['user'] = $userinfo;
         }
         // Xử lý đăng xuất

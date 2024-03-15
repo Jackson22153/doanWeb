@@ -1,5 +1,5 @@
 <?php
-
+    require '../../inc/init.php';
     Auth::requireLogin();
     $user = $_SESSION['user'];
     $roles = $user->role;

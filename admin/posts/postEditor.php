@@ -20,7 +20,7 @@
             $postStateID = $postDetail->stateID;
             $postcategories = $postDetail->category;
         }else{
-            header('Location: /posts.php');
+            header('Location: index.php');
         }
     }else {
         header("Location: ../../index.php");
@@ -68,6 +68,7 @@
     <?php require '../../inc/text-editor.php'?>
 </body>
 <script src="../../js/categoryCheckBox.js"></script>
-<script src="../../js/text-editor.js" defer></script>
+<script src="../../js/text-editor.js"></script>
 <script src="../../js/updatePost.js"></script>
+<script src="../../js/confirmModalForm.js"></script>
 </html>

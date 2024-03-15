@@ -6,7 +6,7 @@ $conn = require "inc/db.php";
 // Update the following variables
 $google_oauth_client_id = '729349237408-u0looh5jgfl91sriejbsinn5rqhvmphk.apps.googleusercontent.com';
 $google_oauth_client_secret = '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';
-$google_oauth_redirect_uri = 'http://localhost/blog/doanWeb/google-oauth.php';
+$google_oauth_redirect_uri = 'http://localhost/phpdoan/doanWeb/google-oauth.php';
 $google_oauth_version = 'v3';
 // If the captured code param exists and is valid
 if (isset($_GET['code']) && !empty($_GET['code'])) {
@@ -51,7 +51,8 @@ if (isset($_GET['code']) && !empty($_GET['code'])) {
             // If the user does not exist in the database, insert the user into the database
             if (!$user) {
                 $stmt = $conn->prepare('INSERT INTO users (username, password) VALUES (?, ?)');
-                $stmt->execute([$profile['email'], rand(1000000000, 100000000000000000)]);
+                $password = rand(1000000000, 100000000000000000);
+                $stmt->execute([$profile['email'], $password ]);
                 $id = $conn->lastInsertId();                
             }else {
                 $id = $user['id'];
@@ -59,10 +60,19 @@ if (isset($_GET['code']) && !empty($_GET['code'])) {
             $_SESSION['google_loggedin'] = TRUE;
             $_SESSION['google_name'] = implode(' ', $google_name_parts);
             $_SESSION['google_picture'] = isset($profile['picture']) ? $profile['picture'] : '';
+            //add UserRole
+            $user = new User($profile['email'], $password);  
+            $role = new Role("USER");
+            $role->id = 2;
+            $roleID = $role->id;
+            $userID = $user->getUserID($conn,$profile['email']);
+            $UserRole = new UserRole($userID, $roleID);
+            $UserRole->addUserRole($conn);
             // Authenticate the account
-            Auth::login();
+            Auth::login($profile['email'], $conn);
             $_SESSION['google_loggedin'] = TRUE;
             $_SESSION['google_id'] = $id;
+            
             // Redirect to profile page
             header('Location: profile.php');
             exit;

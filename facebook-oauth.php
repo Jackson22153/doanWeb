@@ -55,19 +55,29 @@ if (isset($profile['email'])) {
     $user = $stmt->fetch(PDO::FETCH_ASSOC);
     // If the user does not exist in the database, insert the user into the database
     if (!$user) {
-        $stmt = $conn->prepare('INSERT INTO users (username) VALUES (?)');
-        $stmt->execute([$profile['email']]);
-        $id = $conn->lastInsertId();
+        $stmt = $conn->prepare('INSERT INTO users (username, password) VALUES (?, ?)');
+        $password = rand(1000000000, 100000000000000000);
+        $stmt->execute([$profile['email'], $password ]);
+        $id = $conn->lastInsertId(); 
     } else {
         $id = $user['id'];
     }
+    //add UserRole
+    $user = new User($profile['email'], $password);  
+    $role = new Role("USER");
+    $role->id = 2;
+    $roleID = $role->id;
+    $userID = $user->getUserID($conn,$profile['email']);
+    $UserRole = new UserRole($userID, $roleID);
+    $UserRole->addUserRole($conn);
     // Authenticate the account
-    Auth::login();
+    Auth::login($profile['email'],$conn);
     $_SESSION['facebook_loggedin'] = TRUE;
     $_SESSION['facebook_id'] = $id;
     $_SESSION['facebook_email'] = $profile['email'];
     $_SESSION['facebook_name'] = $profile['name'];
     $_SESSION['facebook_picture'] = $profile['picture']['data']['url'];
+    
     // Redirect to profile page
     header('Location: profile.php');
     exit;

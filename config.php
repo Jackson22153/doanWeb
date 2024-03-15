@@ -6,6 +6,7 @@
     define('DB_USER', 'simp');
     define('DB_PASS', '10122003simp');
     // pagination
+    
     define('PAGE_SIZE', 4);
 
     // admin123

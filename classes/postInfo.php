@@ -9,9 +9,8 @@
         public $date;
         public $category;
 
-        public function __construct($id=null, $postTitle='', $postContentID='', $postImg='', $stateID='', $userID='', $date='', $category='') {
+        public function __construct($postTitle='', $postContentID='', $postImg='', $stateID='', $userID='', $date='', $category='') {
             if($postTitle!='' && $postContentID!='' && $stateID!='' && $userID!='' && $date != '' && $category!= ''){
-                $this->id = $id;
                 $this->postTitle = $postTitle;
                 $this->postContentID = $postContentID;
                 $this->postImg = $postImg;
@@ -23,7 +22,7 @@
         }
 
         public static function getPostByID($postID, $conn){
-            $sql = "select * from postinfo where id=:postID;";
+            $sql = "select * from postInfo where id=:postID;";
             $stmt = $conn->prepare($sql);
             $stmt->bindValue(':postID', $postID, PDO::PARAM_INT);
             $stmt->setFetchMode(PDO::FETCH_CLASS, 'PostInfo'); //Trả về 1 đổi tượng
@@ -41,7 +40,7 @@
         }
 
         public static function getPostsByCategories($conn){
-            $sql = "select * from postinfo group by category, id;";
+            $sql = "select * from postInfo group by category, id;";
             $stmt = $conn->prepare($sql);
             $stmt->setFetchMode(PDO::FETCH_CLASS, 'PostInfo'); //Trả về 1 đổi tượng
             $stmt->execute(); // Thực hiện câu lệnh sql

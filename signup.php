@@ -31,8 +31,7 @@
             try{
                 if($user->addUser($conn)){
                     Dialog::show("Add User Successfully! redirect to Login...");
-                    $role = new Role("USER");
-                    $role->id = 2;
+                    $role = Role::getRole("USER", $conn);
                     $roleID = $role->id;
                     $userID = $user->getUserID($conn,$email);
                     $UserRole = new UserRole($userID, $roleID);

@@ -3,8 +3,24 @@
         public $id;
         public $role;
 
-        public function __construct($role) {
-            $this->role = $role;
+        public function __construct($role=null) {
+            if($role!=null){
+                $this->role = $role;
+            }
+        }
+
+        public static function getRole($roleName, $conn){
+            $sql = "
+                select * from roles
+                where role=:role;
+            ";
+            $stmt = $conn->prepare($sql);
+            $stmt->bindValue(':role', $roleName, PDO::PARAM_STR);
+            $stmt->setFetchMode(PDO::FETCH_CLASS, 'Role');
+            $stmt->execute();
+            $role = $stmt->fetch();
+
+            return $role;
         }
 
         

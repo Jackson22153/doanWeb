@@ -107,9 +107,11 @@
                     $user = $_SESSION['user'];
                     $roles = $user->role;
                     if(in_array('USER', $roles)){
-  
                       echo '<li class="nav-item">' 
                       .'<a class="nav-link" href="./textEditor/index.php">Viết bài</a>'.
+                      '</li>';
+                      echo '<li class="nav-item">' 
+                      .'<a class="nav-link" href="./user/index.php">Profile</a>'.
                       '</li>';
                     }
                     if(in_array('ADMIN', $roles)){
@@ -121,9 +123,9 @@
                  
                   ?>
                   
-                  <li class="nav-item">
+                  <!-- <li class="nav-item">
                     <a class="nav-link" href="blog-single.php">Blog Detail</a>
-                  </li>
+                  </li> -->
                   <!-- <li class="nav-item">
                     <a class="nav-link" href="contact.php">Contact</a>
                   </li> -->

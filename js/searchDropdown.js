@@ -8,7 +8,7 @@ class SearchDropdown extends HTMLElement{
                 onfocus="this.placeholder = ''" onblur="this.placeholder = 'Search Posts'"
                 id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" 
                 autocomplete="false">
-            <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">  
+            <div class="dropdown-menu" id="search-dropdown-menu" aria-labelledby="dropdownMenuLink">  
             </div>
             <button type="submit"><i class="fa fa-search"></i></button>
         `;
@@ -17,7 +17,7 @@ class SearchDropdown extends HTMLElement{
 
     connectedCallback(){
         let searchBar = document.getElementById('search-bar');
-        let dropdownMenu = document.querySelector('.dropdown-menu');
+        let dropdownMenu = document.querySelector('#search-dropdown-menu');
         var searchPath = this.getAttribute('search-path');
         var searchCondition = this.getAttribute('search-condition');
         var desPath = this.getAttribute('des-path');
@@ -52,12 +52,12 @@ class SearchDropdown extends HTMLElement{
                     .then(response => response.json())
                     .then(data => {
                         if(data.length>0){
-                            // console.log(data)
                             data.forEach(post => {
                                 var a = document.createElement('a');
                                 a.classList.add("dropdown-item");
                                 a.href= `${desPath}?p=${post.id}`;
                                 a.innerHTML = post.postTitle;
+                                console.log(a)
                                 // console.log(a);
                                 dropdownMenu.appendChild(a);
                             });
@@ -71,7 +71,7 @@ class SearchDropdown extends HTMLElement{
                     });
                 }
 
-            }, 300); // set the timer
+            }, 200); // set the timer
             
         })
     }

@@ -64,8 +64,20 @@
                   <li class="nav-item">
                     <a class="nav-link" href="index.php">Home</a>
                   </li> 
-                  <li class="nav-item">
+                  <!-- <li class="nav-item">
                     <a class="nav-link" href="category.php">Category</a>
+                  </li> -->
+                  <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Category </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                      <?php
+                        
+                        $categories = Category::getAllCategories($conn);
+                        foreach ($categories as $category)  {
+                          echo '<li><a class="dropdown-item" href="category.php?c=' . $category->category . '">' . $category->category . '</a></li>';
+                      }
+                      ?>
+                    </ul>
                   </li>
                   <?php
                   if(Auth::isLoggedIn()){

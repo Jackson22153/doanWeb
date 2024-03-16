@@ -43,7 +43,7 @@
             <div>
                 <div class="form-group">
                     <label for="db-host">Database host</label>
-                    <input type="url" name="db-host" class="form-control" value=<?=DB_HOST?>
+                    <input type="text" name="db-host" class="form-control" value=<?=DB_HOST?>
                         placeholder="Enter database's host">
                 </div>
                 <div class="form-group">

@@ -29,10 +29,16 @@
       $state = State::getPublicState($conn);
       $requestParam = $state->id;
     }
-  
+
     $filter = array('state'=>$requestParam);
-  
-    $postsPageable = Post::getPostsByUserID($user->id, $state->id, $page, $conn);
+
+    if(isset($_GET['search']) && !empty($_GET['search'])){
+      $searchParam = $_GET['search'];
+      $postsPageable = Post::searchPostsOfUser($searchParam, $state->id, $user->id, $page, $conn);
+    }else{
+      $postsPageable = Post::getPostsByUserID($user->id, $state->id, $page, $conn);
+    }
+
     $posts = $postsPageable->content;
     $totalPages = $postsPageable->totalPages;
   }else {
@@ -142,7 +148,7 @@
                   <!-- search -->
                   <div class="single-sidebar-widget search-widget">
                       <h4 class="category-title">Search</h4>
-                      <form class="search-form mt-20" action="archive.php">
+                      <form class="search-form mt-20" action="index.php">
                         <search-dropdown search-path='search.php' search-condition=<?=json_encode($filter)?>
                           des-path=<?=$postHref?>>
                       </form>

@@ -4,6 +4,7 @@
   
   $conn = require "./inc/db.php";
   $categories = Category::getAllCategories($conn);
+  $searchDes = 'archive.php';
 
   if(isset($_GET['page']) && !empty($_GET['page'])){
     $page = intval($_GET['page']);

@@ -12,7 +12,15 @@
         }else $page = 0;
 
         $postHref = 'postEditor.php';
-        $postsPageable = Post::getAllPostsByAllStates($page, $conn);
+
+        if(isset($_GET['search']) && !empty($_GET['search'])){
+            $searchParam = $_GET['search'];
+            $postsPageable = Post::searchAllPosts($searchParam, $page, $conn);
+        }else{
+            $postsPageable = Post::getAllPostsByAllStates($page, $conn);
+        }
+
+
         $posts = $postsPageable->content;
         $totalPages = $postsPageable->totalPages;
     }else {
@@ -88,7 +96,7 @@
                     <!-- search -->
                     <div class="single-sidebar-widget search-widget">
                         <h4 class="category-title">Search</h4>
-                        <form class="search-form mt-20" action="archive.php">
+                        <form class="search-form mt-20" action="index.php">
                             <search-dropdown search-path='search.php' des-path=<?=$postHref?>>
                         </form>
                     </div>

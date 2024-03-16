@@ -191,14 +191,14 @@
             $stmt->bindValue(':pageSize', PAGE_SIZE, PDO::PARAM_INT);
             $stmt->bindValue(':pageNumber', $pageNumber*PAGE_SIZE, PDO::PARAM_INT);
             $stmt->bindValue(':postTitle', '%'.$postTitle.'%', PDO::PARAM_STR);
-            $stmt->bindValue(':stateID', $stateID, PDO::PARAM_STR);
+            $stmt->bindValue(':stateID', $stateID, PDO::PARAM_INT);
             $stmt->bindValue(':userID', $userID, PDO::PARAM_INT);
             $stmt->setFetchMode(PDO::FETCH_CLASS, 'Post'); //Trả về 1 đổi tượng
             $stmt->execute(); // Thực hiện câu lệnh sql
             $posts = $stmt->fetchAll(); // Lấy ra cái đối tượng
 
             // pageable
-            $condition = "where postTitle like '%$postTitle%' and stateID=$stateID";
+            $condition = "where postTitle like '%$postTitle%' and stateID=$stateID and userID=$userID";
             $totalPages = Pageable::getTotalPages('posts', $condition, $conn);
             $pageable = new Pageable(false, false, $posts, $totalPages, $pageNumber);
 

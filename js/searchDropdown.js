@@ -57,7 +57,6 @@ class SearchDropdown extends HTMLElement{
                                 a.classList.add("dropdown-item");
                                 a.href= `${desPath}?p=${post.id}`;
                                 a.innerHTML = post.postTitle;
-                                console.log(a)
                                 // console.log(a);
                                 dropdownMenu.appendChild(a);
                             });
@@ -68,6 +67,7 @@ class SearchDropdown extends HTMLElement{
                             // console.log(a);
                             dropdownMenu.appendChild(a);
                         }
+                        searchBar.focus();
                     });
                 }
 

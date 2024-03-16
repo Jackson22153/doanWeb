@@ -8,6 +8,7 @@
 	$user = User::getUser($conn, $postDetail->userID);
     $username = $user->username;
 	$categories = Category::getAllCategories($conn);
+    $searchDes = 'archive.php';
 
 	require "inc/header.php"; 
 ?>

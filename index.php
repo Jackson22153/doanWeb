@@ -4,6 +4,7 @@
   $categories = Category::getAllCategories($conn);
   $state = State::getPublicState($conn);
   $posts = Post::getPostsRandomly($state->id, $conn);
+  $searchDes = 'archive.php';
 ?>
 <?php require "inc/header.php"; ?>
 
@@ -147,27 +148,5 @@
     ></script>
     <script src="js/bootstrap-datepicker.js"></script>
     <script src="js/main.js"></script>
-
-    <!-- <script>
-      let searchBar = document.getElementById('search-bar');
-      searchBar.addEventListener('keyup', (event)=>{
-        var query = event.target.value;
-        fetch('search.php', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/x-www-form-urlencoded',
-            },
-            body: 'query=' + encodeURIComponent(query),
-        })
-        .then(response => response.json())
-        .then(data => {
-            // Display the search results
-            // You can modify this part based on how you want to display the results
-            console.log(data);
-        });
-      })
-    </script> -->
-
-
   </body>
 </html>

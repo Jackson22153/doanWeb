@@ -21,50 +21,58 @@ class SearchDropdown extends HTMLElement{
         var searchPath = this.getAttribute('search-path');
         var searchCondition = this.getAttribute('search-condition');
         var desPath = this.getAttribute('des-path');
-
+        let timer;
 
         searchBar.addEventListener('keyup', (event)=>{
             var query = event.target.value;
-            dropdownMenu.innerHTML='';
-
-            var data = JSON.parse(searchCondition);
-            data = {
-                ...data,
-                query: query
-            }
             
-            data = JSON.stringify(data);
+            while(dropdownMenu.firstChild){
+                const child = dropdownMenu.firstChild;
+                dropdownMenu.removeChild(child)
+            }
 
-            if(query.length>2){
-                fetch(searchPath, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/x-www-form-urlencoded',
-                    },
-                    body: data
-                    // body: 'query=' + encodeURIComponent(query),
-                })
-                .then(response => response.json())
-                .then(data => {
-                    if(data.length>0){
-                        console.log(data)
-                        data.forEach(post => {
+            clearTimeout(timer); // clear the timer if a key is pressed
+            timer = setTimeout(()=>{
+                var data = JSON.parse(searchCondition);
+                data = {
+                    ...data,
+                    query: query
+                }
+                data = JSON.stringify(data);
+    
+                if(query.length>2){
+                    fetch(searchPath, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/x-www-form-urlencoded',
+                        },
+                        body: data
+                        // body: 'query=' + encodeURIComponent(query),
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if(data.length>0){
+                            // console.log(data)
+                            data.forEach(post => {
+                                var a = document.createElement('a');
+                                a.classList.add("dropdown-item");
+                                a.href= `${desPath}?p=${post.id}`;
+                                a.innerHTML = post.postTitle;
+                                // console.log(a);
+                                dropdownMenu.appendChild(a);
+                            });
+                        }else {
                             var a = document.createElement('a');
                             a.classList.add("dropdown-item");
-                            a.href= `${desPath}?p=${post.id}`;
-                            a.innerHTML = post.postTitle;
+                            a.innerHTML = "Blog not found";
                             // console.log(a);
                             dropdownMenu.appendChild(a);
-                        });
-                    }else {
-                        var a = document.createElement('a');
-                        a.classList.add("dropdown-item");
-                        a.innerHTML = "Blog not found";
-                        // console.log(a);
-                        dropdownMenu.appendChild(a);
-                    }
-                });
-            }
+                        }
+                    });
+                }
+
+            }, 300); // set the timer
+            
         })
     }
 }

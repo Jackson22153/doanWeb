@@ -24,7 +24,8 @@ let textEditorSubmit = document.getElementById('text-editor-submit');
 let modalOverlay = document.querySelector('.modal');
 let inputPostImage = document.getElementById('input-post-image');
 let postThumbnailImage = document.getElementById('post-thumbnail-image');
-
+let dotEnvPath = document.getElementById("current-path");
+console.log(dotEnvPath)
 // confirm data toggle and add data
 // function confirmModalFunc(){
 //   // toggle confirm modal
@@ -42,7 +43,7 @@ let postThumbnailImage = document.getElementById('post-thumbnail-image');
 let imageUrl = null;
 // upload image from system
 async function createNewImage(content, extension){
-    uploadImage(content, extension)
+    uploadImage(content, extension, dotEnvPath.getAttribute('path'))
     .then(response => response.json())
     .then(data => {
         // console.log(data);
@@ -127,7 +128,7 @@ imageUploadIpt.addEventListener('change', function(event){
       
       const extension = fileName.split('.').pop();
 
-      uploadImage(imgSrc, extension)
+      uploadImage(imgSrc, extension, dotEnvPath.getAttribute('path'))
       .then(res =>res.json())
       .then(data =>{        
         const content = data.content;
@@ -486,7 +487,7 @@ writingArea.addEventListener('paste', (event)=>{
         e.preventDefault()
         // get image base64
         let imgSrc = e.target.result;
-        await uploadImage(imgSrc, 'png')
+        await uploadImage(imgSrc, 'png', dotEnvPath.getAttribute('path'))
         .then(res => res.json())
         .then(data => {
           // console.log(data);

@@ -4,7 +4,7 @@ let token = '';
 
 
 
-async function uploadImage(contentBase64, extension){
+async function uploadImage(contentBase64, extension, dotEnvPath){
     var content = contentBase64.split(';base64,').pop();
     // content = contentBase64.replace(`data:image/${extension};base64,`, '');
     var uuid = crypto.randomUUID();
@@ -20,7 +20,7 @@ async function uploadImage(contentBase64, extension){
         content: content
     };
 
-    await fetch('../.env').then(res => res.text())
+    await fetch(`${dotEnvPath}.env`).then(res => res.text())
     .then(text => {
         const lines = text.split('\n');
         lines.forEach(line => {

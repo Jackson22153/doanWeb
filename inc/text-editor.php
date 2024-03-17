@@ -1,6 +1,6 @@
 <!-- parameters: 
     $updatePath, $postContent, $postID, $postStateID, $postImg, 
-    $states, $postcategories, $categories  
+    $states, $postcategories, $categories, $dotEnvPath
 -->
 <form id="text-editor" action=<?=$updatePath?> method="post" enctype="multipart/form-data">
     <div id="text-editor-header" class="d-flex justify-content-center">
@@ -117,6 +117,7 @@
         <input name="postID" type="text" value=<?=$postID ?? 0?> hidden />
     </div>
     <div class="buttons-form">
+        <span id="current-path" hidden path=<?=$dotEnvPath?>></span>
         <a href="../index.php" class="btn btn-light border-secondary-subtle">Home</a>
         <span id="next-button" class="btn btn-primary toggle-button">Next</span>
     </div>

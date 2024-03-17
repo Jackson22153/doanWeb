@@ -10,6 +10,7 @@
         $categories = Category::getAllCategories($conn);
         $states = State::getAllStates($conn);
         $updatePath = 'postUpdating.php';
+        $dotEnvPath = '../../';
     
         if(isset($_GET['p']) && !empty($_GET['p'])){
             $postID = intval($_GET['p']);

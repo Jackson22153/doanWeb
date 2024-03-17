@@ -14,6 +14,7 @@
         $postStateID=1;
         $postImg=null;
         $postcategories=[];
+        $dotEnvPath = '../';
     }else {
         header("Location: ../index.php");
     }

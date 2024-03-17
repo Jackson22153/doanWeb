@@ -39,7 +39,6 @@
         <title>Login</title>
         <!-- Reset CSS -->
         <link rel="stylesheet" href="./css/reset.css" />
-        <link rel="stylesheet" href="//use.fontawesome.com/releases/v5.0.7/css/all.css">
 
 
 

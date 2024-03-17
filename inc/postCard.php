@@ -6,14 +6,6 @@
 
     $postInfo = PostInfo::getPostByID($post->id, $conn);
     $categoriesOfPost = $postInfo->category;
-
-    // $categoryIDsOfPost = PostToCategories::getPostToCategories($post->id, $conn);
-    // $categoryIDs = array();
-    // foreach($categoryIDsOfPost as $cat) {
-    //     $categoryIDs[]= $cat->categoryID;
-    // }
-    // $categoriesOfPost = Category::getCategoriesByIDs($categoryIDs, $conn);
-
 ?>
 <div class="single-amenities">
     <a href=<?=$postHref.'?p='.$post->id?>>

@@ -7,7 +7,7 @@ class SearchDropdown extends HTMLElement{
             <input placeholder="Search Posts" name="search" type="text" id="search-bar"
                 onfocus="this.placeholder = ''" onblur="this.placeholder = 'Search Posts'"
                 id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" 
-                autocomplete="false">
+                autocomplete="off">
             <div class="dropdown-menu" id="search-dropdown-menu" aria-labelledby="dropdownMenuLink">  
             </div>
             <button type="submit"><i class="fa fa-search"></i></button>
@@ -32,7 +32,7 @@ class SearchDropdown extends HTMLElement{
             }
 
             clearTimeout(timer); // clear the timer if a key is pressed
-            timer = setTimeout(()=>{
+            timer = setTimeout(async ()=>{
                 var data = JSON.parse(searchCondition);
                 data = {
                     ...data,
@@ -41,7 +41,7 @@ class SearchDropdown extends HTMLElement{
                 data = JSON.stringify(data);
     
                 if(query.length>2){
-                    fetch(searchPath, {
+                    await fetch(searchPath, {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/x-www-form-urlencoded',
@@ -69,6 +69,11 @@ class SearchDropdown extends HTMLElement{
                         }
                         searchBar.focus();
                     });
+                }else{
+                    while(dropdownMenu.firstChild){
+                        const child = dropdownMenu.firstChild;
+                        dropdownMenu.removeChild(child)
+                    }
                 }
 
             }, 200); // set the timer

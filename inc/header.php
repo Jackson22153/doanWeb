@@ -130,7 +130,7 @@
                     <a class="nav-link" href="blog-single.php">Blog Detail</a>
                   </li> -->
                   <li class="nav-item">
-                    <a class="nav-link" href="contact.php">Contact</a>
+                    <a class="nav-link" href="archive.php">Archive</a>
                   </li>
                   <?php
                   if(Auth::isLoggedIn()){

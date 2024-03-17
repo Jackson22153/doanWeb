@@ -84,7 +84,7 @@
                 <div class="media-options">
                     <a href="github-oauth.php" class="github-login-btn">
                         <span class="icon">
-                            <img src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png" alt="GitHub Logo">
+                            <img width="25px" src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png" alt="GitHub Logo">
                         </span>
                         <div class="desc"><p>Login with Github</p></div>
                     </a>

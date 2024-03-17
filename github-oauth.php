@@ -21,28 +21,56 @@
             'redirect_uri' => $redirect_uri,
             'code' => $_GET['code'],
         ];
-        $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL, $token_uri);
-        curl_setopt($ch, CURLOPT_POST, true);
-        curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($params));
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($ch, CURLOPT_HTTPHEADER, ['Accept: application/json']);
-        $response = curl_exec($ch);
-        curl_close($ch);
-        $response = json_decode($response, true);
+        // $ch = curl_init();
+        // curl_setopt($ch, CURLOPT_URL, $token_uri);
+        // curl_setopt($ch, CURLOPT_POST, true);
+        // curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($params));
+        // curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        // curl_setopt($ch, CURLOPT_HTTPHEADER, ['Accept: application/json']);
+        // $response = curl_exec($ch);
+        // curl_close($ch);
+        // $response = json_decode($response, true);
+        
 
+        $options = [
+            'http' => [
+                'header' => "Content-type: application/x-www-form-urlencoded\r\n". 
+                            "Accept: application/json",
+                'method' => 'POST',
+                'content' => http_build_query($params),
+            ],
+        ];
+        $context = stream_context_create($options);
+        $result = file_get_contents($token_uri, false, $context);
+        $response = json_decode($result, true);
+        $accessToken = $response['access_token'];
         if (isset($response['access_token']) && !empty($response['access_token'])) {
             // Make sure access token is valid
             // Execute cURL request to retrieve the user info associated with the Facebook account
-            $ch = curl_init();
-            curl_setopt($ch, CURLOPT_URL, $apiUrl);
-            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-            curl_setopt($ch, CURLOPT_HTTPHEADER, [
-                'Authorization: Bearer ' . $response["access_token"],
-                "User-Agent: webblog-php"
-            ]);
-            $response = curl_exec($ch);
-            curl_close($ch);
+            // $ch = curl_init();
+            // curl_setopt($ch, CURLOPT_URL, $apiUrl);
+            // curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+            // curl_setopt($ch, CURLOPT_HTTPHEADER, [
+            //     'Authorization: Bearer ' . $response["access_token"],
+            //     "User-Agent: webblog-php"
+            // ]);
+
+            // $response = curl_exec($ch);
+            // curl_close($ch);
+
+            $options = [
+                'http' => [
+                    'header' => "Content-type: application/x-www-form-urlencoded\r\n". 
+                                "Authorization: Bearer ".$accessToken."\r\n".
+                                "User-Agent: webblog-php",
+                    'method' => 'GET',
+                ],
+            ];
+            $context = stream_context_create($options);
+            $result = file_get_contents($apiUrl, false, $context);
+            $response = $result;
+
+
             $profile = json_decode($response, true);
             //     // Make sure the profile data exists
             if (isset($profile['email']) || isset($profile['login'])) {

@@ -214,6 +214,37 @@ form{
 .media-options .facebook-login-btn:hover {
     background-color: #385591;
 }
+/*  */
+.media-options .github-login-btn {
+    border: 1px solid black;
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    font-size: 1.4rem;
+    font-weight: 500;
+    margin-top: 10px;
+    color: #000;
+    width: 100%;
+    overflow: hidden;
+    border-radius: 5px;
+    background-color: #ffffff;
+    cursor: pointer;
+ }
+.media-options .github-login-btn .icon {
+    display: inline-flex;
+    height: 100%;
+    padding: 10px 15px;
+    align-items: center;
+    justify-content: center;
+    margin-left: -10px;
+ }
+.media-options .github-login-btn .icon img {
+    fill: #fff;
+    width: 25px;
+}
+.media-options .github-login-btn:hover {
+    background-color: #ffffff;
+}
 
 @media screen and (max-width: 400px) {
     .form{

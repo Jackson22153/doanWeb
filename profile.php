@@ -12,12 +12,10 @@ if (!isset($_SESSION['google_loggedin']) && !isset($_SESSION['facebook_loggedin'
 }
 // Retrieve session variables
 if(!empty($_SESSION['google_loggedin'])){
-    $stmt = $conn->prepare('SELECT * FROM users WHERE id = ?');
-    $stmt->execute([ $_SESSION['google_id'] ]);
-    $user = $stmt->fetch(PDO::FETCH_ASSOC);
+    $user = User::getUser($conn, $_SESSION['google_id']);
     // Retrieve session variables
     $google_loggedin = $_SESSION['google_loggedin'];
-    $email = $user['username'];
+    $email = $user->username;
     $name = $_SESSION['google_name'];
     $picture = $_SESSION['google_picture'];
 }

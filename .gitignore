@@ -2,3 +2,6 @@
 /.sass-cache
 .env
 config.php
+google-credential.json
+github-credential.json
+facebook-credential.json

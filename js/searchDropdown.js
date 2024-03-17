@@ -25,11 +25,7 @@ class SearchDropdown extends HTMLElement{
 
         searchBar.addEventListener('keyup', (event)=>{
             var query = event.target.value;
-            
-            while(dropdownMenu.firstChild){
-                const child = dropdownMenu.firstChild;
-                dropdownMenu.removeChild(child)
-            }
+        
 
             clearTimeout(timer); // clear the timer if a key is pressed
             timer = setTimeout(async ()=>{
@@ -51,6 +47,10 @@ class SearchDropdown extends HTMLElement{
                     })
                     .then(response => response.json())
                     .then(data => {
+                        while(dropdownMenu.firstChild){
+                            const child = dropdownMenu.firstChild;
+                            dropdownMenu.removeChild(child)
+                        }
                         if(data.length>0){
                             data.forEach(post => {
                                 var a = document.createElement('a');

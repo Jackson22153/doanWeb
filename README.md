@@ -3,7 +3,8 @@ file
 https://drive.google.com/file/d/1Xk4UvI829hdTHL9fp5gQ1PlMnQXtLpDd/view?usp=drive_link
 
 CDM
-![image](https://github.com/Jackson22153/doanWeb/assets/96383013/c165f52d-b1f1-41a1-949f-a2c81a989703)
+![image](https://github.com/Jackson22153/doanWeb/assets/96383013/95a59764-69ff-4724-a98a-1598e07c5761)
+
 PDM
 ![image](https://github.com/Jackson22153/doanWeb/assets/96383013/c04c9966-4874-48aa-a0f3-cde44f591eb5)
 
